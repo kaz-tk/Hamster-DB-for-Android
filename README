@@ -1,0 +1,21 @@
+=============================
+Hamster DB for Android 
+=============================
+
+
+Abstraction
+=============================
+
+This Project is Unofficial Project porting Hamster DB(http://hamsterdb.com/) for Android.
+
+
+
+
+
+
+Change Note
+================
+
+First Commit : Branch from 1.1.4 (Because of dependency of Java Wrapper)
+
+
