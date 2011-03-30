@@ -1,52 +1,59 @@
 
-AM_CPPFLAGS = -I../include -I$(top_builddir)/3rdparty/aes
+all:de/crupp/hamsterdb/Const.class \
+	de/crupp/hamsterdb/DatabaseException.class \
+    de/crupp/hamsterdb/Database.class \
+	de/crupp/hamsterdb/Environment.class \
+	de/crupp/hamsterdb/Cursor.class \
+	de/crupp/hamsterdb/Version.class \
+	de/crupp/hamsterdb/License.class \
+	de/crupp/hamsterdb/Parameter.class \
+	de/crupp/hamsterdb/ErrorHandler.class \
+	de/crupp/hamsterdb/CompareCallback.class \
+	de/crupp/hamsterdb/PrefixCompareCallback.class \
+	de/crupp/hamsterdb/DuplicateCompareCallback.class \
+	de/crupp/hamsterdb/Transaction.class \
+	jar
 
-lib_LTLIBRARIES = libhamsterdb.la
+jar: 
+	$(JDK)/bin/jar -cf hamsterdb-$(PACKAGE_VERSION).jar \
+		de/crupp/hamsterdb/*.class 
 
-EXTRA_DIST = os_win32.c
+de/crupp/hamsterdb/Const.class: de/crupp/hamsterdb/Const.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Const.java
 
-freelist.c:
-	blah
+de/crupp/hamsterdb/DatabaseException.class: de/crupp/hamsterdb/DatabaseException.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/DatabaseException.java
 
-libhamsterdb_la_SOURCES = log.c \
-			blob.c \
-			btree.c \
-			btree_check.c \
-			btree_enum.c \
-			btree_erase.c \
-			btree_find.c \
-			btree_insert.c \
-			cache.c \
-			db.c \
-			env.c \
-			error.c \
-			extkeys.c \
-			freelist.c \
-			freelist_v2.c \
-			freelist_statistics.c \
-			hamsterdb.c \
-			keys.c \
-			mem.c \
-			os_posix.c \
-			page.c \
-			statistics.c \
-			txn.c \
-			util.c \
-			btree_cursor.c \
-			device.c
+de/crupp/hamsterdb/Database.class: de/crupp/hamsterdb/Database.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Database.java
 
-libhamsterdb_la_LDFLAGS = -version-info 2:0:0
+de/crupp/hamsterdb/Environment.class: de/crupp/hamsterdb/Environment.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Environment.java
 
-if ENABLE_ENCRYPTION
-libhamsterdb_la_LDFLAGS += $(top_builddir)/3rdparty/aes/libaes.la
-endif
+de/crupp/hamsterdb/Cursor.class: de/crupp/hamsterdb/Cursor.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Cursor.java
 
-if ENABLE_COMPRESSION
-if SYSTEM_ZLIB
-libhamsterdb_la_LDFLAGS += -lz
-else
-libhamsterdb_la_LDFLAGS += $(top_builddir)/3rdparty/zlib/libzlib.la
-endif
-endif
+de/crupp/hamsterdb/Version.class: de/crupp/hamsterdb/Version.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Version.java
 
+de/crupp/hamsterdb/License.class: de/crupp/hamsterdb/License.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/License.java
+
+de/crupp/hamsterdb/Parameter.class: de/crupp/hamsterdb/Parameter.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Parameter.java
+
+de/crupp/hamsterdb/ErrorHandler.class: de/crupp/hamsterdb/ErrorHandler.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/ErrorHandler.java
+
+de/crupp/hamsterdb/CompareCallback.class: de/crupp/hamsterdb/CompareCallback.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/CompareCallback.java
+
+de/crupp/hamsterdb/PrefixCompareCallback.class: de/crupp/hamsterdb/PrefixCompareCallback.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/PrefixCompareCallback.java
+
+de/crupp/hamsterdb/DuplicateCompareCallback.class: de/crupp/hamsterdb/DuplicateCompareCallback.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/DuplicateCompareCallback.java
+
+de/crupp/hamsterdb/Transaction.class: de/crupp/hamsterdb/Transaction.java
+	$(JDK)/bin/javac de/crupp/hamsterdb/Transaction.java
 
