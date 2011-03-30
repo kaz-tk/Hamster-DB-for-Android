@@ -1,0 +1,40 @@
+
+hamsterdb-java Win32 build environment          Sun Feb 10 16:38:03 CET 2008
+(C) Christoph Rupp, chris@crupp.de; http://www.hamsterdb.com
+
+The Win32 build environment is a Solution file for Microsoft Visual C++ 2005 
+(win32/hamsterdb.sln). It compiles a dynamic library.
+
+All libraries and executable files are built in the 'out'-directory. 
+Intermediate files are in the 'tmp'-directory.
+
+The dynamic library is built in 'out/dll[_debug][_x64]/hamsterdb-java.dll'. 
+Import libraries and pdb files for debug builds are also provided. 
+
+All libraries can be downloaded separately from the hamsterdb webpage.
+
+For dependencies, hamsterdb-java needs the Sun Java Developer Kit (JDK), 
+which can be downloaded from http://java.sun.com/javase/downloads/index.jsp,
+and the hamsterdb DLL, which can be downloaded from www.hamsterdb.com either
+as Source package or prebuilt Win32 libraries. You will have to modify the 
+Solution properties, and change the include paths and library dependencies 
+accordingly.
+
+To download Microsoft Visual C++ 2005 Express Edition for free, go to
+http://msdn.microsoft.com/vstudio/express/visualc/default.aspx.
+
+To test and run hamsterdb for Java, follow these steps:
+
+1. Use Microsoft Visual Studio to build the wrapper DLL; the project will
+    automatically copy the DLL to the `java'-directory.
+2. Open cmd.exe and change to the `java'-directory.
+3. Run `win32.bat' - this batch file will create the JAR file with the
+    compiled Java objects. To use the batch file, make sure that the 
+    environment variable JDK is set properly.
+4. To run the samples, change to the `samples'-directory, and start `win32.bat'.
+    Make sure that `hamsterdb-java.dll' is in the path or in the current
+    directory.
+5. To run the unittests, change to the `unittests'-directory, and start 
+    `win32.bat'. Make sure that `hamsterdb-java.dll' is in the path or in 
+    the current directory.
+

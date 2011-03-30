@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 50
+*.suo
+*.ncb
+tmp
+out
+dll.vcproj.WINDOOF.chris.user
+
+END

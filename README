@@ -1,21 +1,192 @@
-=============================
-Hamster DB for Android 
-=============================
 
+hamsterdb Embedded Storage 1.1.4                   Tue Apr 13 20:21:13 CEST 2010
+(C) Christoph Rupp, chris@crupp.de; http://www.hamsterdb.com
 
-Abstraction
-=============================
+This is the README file of hamsterdb Embedded Storage.
 
-This Project is Unofficial Project porting Hamster DB(http://hamsterdb.com/) for Android.
+Contents:
 
+1. About
 
+hamsterdb Embedded Storage is a database engine written in ANSI C. It supports 
+a B+Tree index structure, uses memory mapped I/O (if available), supports 
+fast Cursors and variable length keys and can create In-Memory Databases.
 
+This release fixes a few bugs and has minor performance improvements.
 
+2. Changes
 
+New Features
+* none
 
-Change Note
-================
+Bugfixes
+* Bugfix - win32 only: with very big databases and unlimited cache, resources
+    were exceeded and mmap failed. in this case we'll now fall back to 
+    read/write (thanks, Simon)
+o Bugfix - it was allowed to create temp. Transactions while a non-temp.
+	Transaction was still active
 
-First Commit : Branch from 1.1.4 (Because of dependency of Java Wrapper)
+Other Changes
+* Optimization - if HAM_DAM_SEQUENTIAL_INSERT is set then btree nodes will
+    not be split in the middle, but at the end of the node. hamsterdb will
+    also auto-recognize if an insert is sequential (at the "right end" of 
+    the index). This leads to MUCH smaller files and therefore higher
+    performance (thanks, Simon)
+* The documentation in the header file was improved and some constants
+    were renamed/deprecated
 
+To see a list of all changes, look in the file ChangeLog.
+
+3. Roadmap
+
+- continue internal code cleanups
+- access remote databases over the network
+
+4. Features
+
+- Very fast sorted B+Tree with variable length keys
+- Can run as an in-memory database
+- Supports multiple databases in one file
+- Supports record number databases ("auto-increment")
+- Supports duplicate keys (with sorting)
+- Support for logging and recovery
+- Support for Transactions (only one Transaction at a time, requires logging)
+- Support for partial reading/writing of records
+- Very fast database cursors 
+- Configurable page size, cache size and index key size
+- Portable ANSI-C implementation
+- Runs on Linux, Unices, Microsoft Windows, Windows CE and on many
+    architectures (also embedded and SPARC)
+- Endian-independent file format
+- Uses memory mapped I/O for fast disk access (but falls back to read/write if
+    mmap is not available)
+- Uses 64bit file pointers and supports huge files (>2 GB)
+- Easy to use and well-documented
+- Supports rudimentary live-reorganization by automatically
+    merging freelist entries
+- Open source and released under the GPL 2.0 or later
+- Supports AES encryption and zlib compression
+- Wrappers for C++, Python, Java and .NET
+
+5. Known Issues/Bugs
+
+None.
+
+6. Compiling 
+
+6.1 Linux and Cygwin/Win32
+
+To compile hamsterdb Embedded Storage, run ./configure, make, make install.
+
+Run `./configure --help' for more options (i.e. static/dynamic library, 
+build with debugging symbols etc).
+
+6.2 Microsoft Visual Studio 8
+
+A Solution file is provided for Microsoft Visual C++ 2005:
+'win32/hamsterdb.sln'. It compiles a static and a dynamic library. 
+Please read the README.TXT file in the win32 directory.
+All libraries can be downloaded precompiled from the hamsterdb webpage.
+
+To download Microsoft Visual C++ 2005 Express Edition for free, go to
+http://msdn.microsoft.com/vstudio/express/visualc/default.aspx.
+
+7. Testing and Example Code
+
+Make automatically compiles several example programs in the directory
+'samples'. To see hamsterdb Embedded Storage in action, just run 'samples/db1' 
+or any other sample. (or 'win32/out/samples/db1/db1.exe' on Windows platforms).
+
+8. API Documentation
+
+The header files in 'include/ham' have extensive comments. Also, a doxygen
+script is available; run 'make doc' to start doxygen. The generated
+documentation is also available on the hamsterdb web page.
+
+9. Other Ways to Compile hamsterdb Embedded Storage
+
+If you want to compile hamsterdb without using the provided ./configure
+environment, you have to set some preprocessor macros:
+
+DEBUG                   enable debugging output and diagnostic checks (slow!)
+HAM_LITTLE_ENDIAN       compile for little endian machines (i.e. x86)
+HAM_BIG_ENDIAN          compile for big endian machines (most other
+                            architectures)
+HAM_32BIT               compile for 32bit (alias: WIN32)
+HAM_64BIT               compile for 64bit (alias: WIN64, also needs WIN32)
+HAM_ENABLE_INTERNAL     enable internal functions (declared in
+                            include/ham/hamsterdb_int.h)
+HAM_DISABLE_COMPRESSION build without support for zlib compression
+HAM_DISABLE_ENCRYPTION  build without support for AES encryption
+
+Also, if you compile for windows, you have to compile the file 'src/os_win32.c',
+and ignore the file 'src/os_posix.c'. Vice versa on non-Windows platforms.
+
+10. Porting hamsterdb Embedded Storage
+
+Porting hamsterdb Embedded Storage shouldn't be too difficult. All operating 
+system dependend functions are declared in 'src/os.h' and defined 
+in 'src/os_win32.c' or 'src/os_posix.c'. 
+Other compiler- and OS-specific macros are in 'include/ham/types.h'. 
+Most likely, these are the only files which have to be touched. Also see item 
+9) for important macros. 
+
+11. Licensing
+
+hamsterdb Embedded Storage can be licensed on a per-developer basis for 
+closed source applications. For more details, see 
+http://hamsterdb.com/licensing and http://hamsterdb.com/store.
+
+hamsterdb Embedded Storage is released under GPL2 or later. There are several 
+exceptions for other open source licenses (see 
+http://hamsterdb.com/licensing/exceptions for legal information and a license 
+list).
+
+12. Contact
+
+Author of hamsterdb Embedded Storage is 
+    Christoph Rupp
+    Paul-Preuss-Str. 63
+    80995 Muenchen/Germany
+    email: chris@crupp.de
+    web: http://www.hamsterdb.com
+
+13. Other Copyrights
+
+The AES library in '3rdparty/aes' is (C) Karl Malbrain, malbrain@yahoo.com
+(http://www.geocities.com/malbrain). It has the following license:
+
+    This work, including the source code, documentation
+    and related data, is placed into the public domain.
+
+    The orginal author is Karl Malbrain.
+
+    THIS SOFTWARE IS PROVIDED AS-IS WITHOUT WARRANTY
+    OF ANY KIND, NOT EVEN THE IMPLIED WARRANTY OF
+    MERCHANTABILITY. THE AUTHOR OF THIS SOFTWARE,
+    ASSUMES _NO_ RESPONSIBILITY FOR ANY CONSEQUENCE
+    RESULTING FROM THE USE, MODIFICATION, OR
+    REDISTRIBUTION OF THIS SOFTWARE.
+
+The zlib library in '3rdparty/zlib' is (C) Jean-loup Gailly and Mark Adler. 
+It has the following license:
+
+    This software is provided 'as-is', without any express or implied
+    warranty.  In no event will the authors be held liable for any damages
+    arising from the use of this software.
+
+    Permission is granted to anyone to use this software for any purpose,
+    including commercial applications, and to alter it and redistribute it
+    freely, subject to the following restrictions:
+
+    1. The origin of this software must not be misrepresented; you must not
+       claim that you wrote the original software. If you use this software
+       in a product, an acknowledgment in the product documentation would be
+       appreciated but is not required.
+    2. Altered source versions must be plainly marked as such, and must not be
+       misrepresented as being the original software.
+    3. This notice may not be removed or altered from any source distribution.
+
+    Jean-loup Gailly        Mark Adler
+    jloup@gzip.org          madler@alumni.caltech.edu
 

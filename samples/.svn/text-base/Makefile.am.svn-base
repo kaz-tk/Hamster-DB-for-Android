@@ -1,0 +1,16 @@
+
+all: Db1.class Env3.class
+	
+
+Db1.class: Db1.java
+	$(JDK)/bin/javac -cp .:../java Db1.java
+
+Env3.class: Env3.java
+	$(JDK)/bin/javac -cp .:../java Env3.java
+
+run: all
+	$(JDK)/bin/java -cp .:../java/hamsterdb-$(PACKAGE_VERSION).jar Db1
+	$(JDK)/bin/java -cp .:../java/hamsterdb-$(PACKAGE_VERSION).jar Env3
+
+clean:
+	\rm *.class *.db
